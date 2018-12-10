@@ -36,6 +36,29 @@ RSpec.describe EmawExample::Emaw do
       expect(subject.ereignis.ereignisid).to eq("844205595728540746789695889749311488")
     }
 
-  end
+    describe "generating xml" do
+      it {
+        expect(subject.build_xml).to eq(File.read(file))
+      }
+    end
 
+    describe "saving xml" do
+      before do
+        @xml_file = subject.save_xml("Test")
+      end
+
+      it {
+        expect(File.file?(@xml_file)).to be_truthy
+      }
+
+      it {
+        expect(subject.build_xml).to eq(File.read(@xml_file))
+      }
+
+      after do
+        File.delete(@xml_file)
+      end
+    end
+
+  end
 end

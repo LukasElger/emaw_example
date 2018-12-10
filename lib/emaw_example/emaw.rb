@@ -9,7 +9,7 @@ class EmawExample::Emaw
   end
 
   def init_from_xml(file_path)
-    xml = Nokogiri::XML(File.open(file_path))
+    xml = Nokogiri::XML(File.read(file_path))
     from_xml(xml.css("emaw"))
   end
 
@@ -34,6 +34,22 @@ class EmawExample::Emaw
       self.daten.to_xml(xml)
       self.ereignis.to_xml(xml)
     }
+  end
+
+  def save_xml(name)
+    file_name = "#{name}.xml"
+    if(File.exists?(file_name))
+      file = File.open(file_name, "w")
+      file.puts(self.build_xml)
+      file.close
+    else
+      File.new(file_name, "w")
+      file = File.open(file_name, "w")
+      file.puts(self.build_xml)
+      file.close
+    end
+
+    EmawExample.file_path(file_name)
   end
 
 end
