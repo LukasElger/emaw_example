@@ -21,6 +21,10 @@ RSpec.describe EmawExample::Ereignis do
       expect(subject.ereignisid).to eq("844205595728540746789695889749311488")
     }
 
+    it {
+      expect(subject.bemerkung).to eq("text")
+    }
+
   end
 
 end

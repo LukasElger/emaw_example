@@ -1,10 +1,11 @@
 class EmawExample::Ereignis
   require "date"
-  attr_accessor :art, :datum, :ereignisid
+  attr_accessor :art, :datum, :ereignisid, :bemerkung
 
   def from_xml(xml)
     self.art = xml.css("art").text
     self.ereignisid = xml.css("ereignisid").text
+    self.bemerkung = xml.css("bemerkung").text
 
     day = xml.css("datum").css("tag").text
     month = xml.css("datum").css("monat").text
@@ -16,15 +17,14 @@ class EmawExample::Ereignis
   def to_xml(xml)
     xml.ereignis {
       xml.art self.art
-      if datum.present?
         xml.datum {
           date = self.datum
           xml.tag date.day
           xml.monat date.month
           xml.jahr date.year
         }
-      end
       xml.ereignisid self.ereignisid
+      xml.bemerkung self.bemerkung
     }
   end
 

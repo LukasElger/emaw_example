@@ -21,7 +21,7 @@ class EmawExample::Emaw
   end
 
   def build_xml
-    builder = Nokogiri::XML::Builder.new do |xml|
+    builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
       to_xml(xml)
     end
 
@@ -29,7 +29,7 @@ class EmawExample::Emaw
   end
 
   def to_xml(xml)
-    xml.emaw {
+    xml.send("emaw", xmlns: "http://ba.emaw.types") {
       xml.version self.version
       self.daten.to_xml(xml)
       self.ereignis.to_xml(xml)
