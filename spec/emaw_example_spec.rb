@@ -1,9 +1,9 @@
 RSpec.describe EmawExample do
-  it "has a version number" do
-    expect(EmawExample::VERSION).not_to be nil
-  end
+  it {
+    expect(subject.root).to include("emaw_example")
+  }
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+  it {
+    expect(subject.file_path("test.xml")).to include("emaw_example/test.xml")
+  }
 end
